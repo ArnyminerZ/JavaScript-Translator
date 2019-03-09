@@ -6,16 +6,23 @@ let availableLanguages = {
     "ca": "Català",
     "es": "Español"
 };
+let langFolderPath = "/lang/";
 
-function setUp(defaultLanguage, selectLang, availableLanguagesList) {
+function setUpLanguages(defaultLanguage, selectLang, availableLanguagesList, languageFolderPath) {
     currentLang = selectLang;
     defaultLang = defaultLanguage;
     availableLanguages = availableLanguagesList;
+    if (languageFolderPath) {
+        if (!languageFolderPath.endsWith("/"))
+            languageFolderPath += "/";
+        langFolderPath = languageFolderPath;
+    } else
+        langFolderPath = "/lang/";
 }
 
 function loadLanguage(prefix, suffix) {
-    $.getJSON("/lang/" + (prefix ? prefix : "") + defaultLang + (suffix ? suffix : "") + ".json", function (defaultLangData) {
-        $.getJSON("/lang/" + (prefix ? prefix : "") + currentLang + (suffix ? suffix : "") + ".json", function (data) {
+    $.getJSON(langFolderPath + (prefix ? prefix : "") + defaultLang + (suffix ? suffix : "") + ".json", function (defaultLangData) {
+        $.getJSON(langFolderPath + (prefix ? prefix : "") + currentLang + (suffix ? suffix : "") + ".json", function (data) {
             loadedTranslationData = data;
 
             document.querySelectorAll('*').forEach(function (node) {

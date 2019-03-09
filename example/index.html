@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title data-translate="title"></title>
+</head>
+<body>
+<a href="/home" data-translate="home"></a>
+<a href="/shop" data-translate="shop"></a>
+<button onclick="buy()" data-translate="buy" data-translate-title="a-very-long-text"></button>
+<input type="text" id="username" data-translate-placeholder="user-name" />
+
+<script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.0.0/dist/js/translate.min.js"></script>
+<script>
+    setUpLanguages('en', 'ca', {
+        "en": "English",
+        "ca": "Català",
+        "es": "Español"
+    }, "/lang/");
+</script>
+</body>
+</html>
