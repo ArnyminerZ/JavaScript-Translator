@@ -30,15 +30,6 @@ function loadLanguage(prefix, suffix) {
                 if (translatePlaceholder) node.placeholder = data[translatePlaceholder] ? data[translatePlaceholder] :
                     defaultLangData[translatePlaceholder] ? defaultLangData[translatePlaceholder] : translatePlaceholder;
             });
-
-            const profileLangNavItemEng = document.getElementById("profileLangNavItemEng"),
-                profileLangNavItemCat = document.getElementById("profileLangNavItemCat");
-
-            if(profileLangNavItemEng && currentLang === 'en') profileLangNavItemEng.classList.add("active");
-            else if(profileLangNavItemEng) profileLangNavItemEng.classList.remove("active");
-
-            if(profileLangNavItemCat && currentLang === 'ca') profileLangNavItemCat.classList.add("active");
-            else if(profileLangNavItemCat) profileLangNavItemCat.classList.remove("active");
         });
     });
 }
