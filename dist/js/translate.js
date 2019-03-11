@@ -29,6 +29,8 @@ function loadLanguage(prefix, suffix) {
                 let translate = node.getAttribute("data-translate");
                 let translateTitle = node.getAttribute("data-translate-title");
                 let translatePlaceholder = node.getAttribute("data-translate-placeholder");
+                let translateAttribute = node.getAttribute("data-translate-attribute");
+                let attribute = node.getAttribute("data-attribute");
 
                 if (translate) node.innerHTML = data[translate] ? data[translate] :
                     defaultLangData[translate] ? defaultLangData[translate] : translate;
@@ -36,6 +38,8 @@ function loadLanguage(prefix, suffix) {
                     defaultLangData[translateTitle] ? defaultLangData[translateTitle] : translateTitle;
                 if (translatePlaceholder) node.placeholder = data[translatePlaceholder] ? data[translatePlaceholder] :
                     defaultLangData[translatePlaceholder] ? defaultLangData[translatePlaceholder] : translatePlaceholder;
+                if (translateAttribute && attribute) node.setAttribute(attribute, data[translateAttribute] ? data[translateAttribute] :
+                    defaultLangData[translateAttribute] ? defaultLangData[translateAttribute] : translateAttribute);
             });
         });
     });
