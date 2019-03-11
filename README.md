@@ -7,7 +7,7 @@ Translating your HTML pages as easy as never!
 [![License](https://img.shields.io/github/license/ArnyminerZ/JavaScript-Translator.svg?style=flat-square)](https://github.com/ArnyminerZ/JavaScript-Translator)
 
 # Requires
-For this project to work you must have *ECMAScript 6* Support
+For this project to work you must have *ECMAScript 6* Javascript Support
 
 # Usage
 ## Import
