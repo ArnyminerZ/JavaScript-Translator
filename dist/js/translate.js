@@ -20,25 +20,46 @@ function setUpLanguages(defaultLanguage, selectLang, availableLanguagesList, lan
         langFolderPath = "/lang/";
 }
 
-function loadLanguage(prefix, suffix) {
-    $.getJSON(langFolderPath + (prefix ? prefix : "") + defaultLang + (suffix ? suffix : "") + ".json", function (defaultLangData) {
-        $.getJSON(langFolderPath + (prefix ? prefix : "") + currentLang + (suffix ? suffix : "") + ".json", function (data) {
-            loadedTranslationData = data;
+function reloadLanguage() {
+    document.querySelectorAll('*').forEach(function (node) {
+        let translate = node.getAttribute("data-translate");
+        let translateTitle = node.getAttribute("data-translate-title");
+        let translatePlaceholder = node.getAttribute("data-translate-placeholder");
+        let languageList = node.getAttribute("data-languages-list");
 
-            document.querySelectorAll('*').forEach(function (node) {
-                let translate = node.getAttribute("data-translate");
-                let translateTitle = node.getAttribute("data-translate-title");
-                let translatePlaceholder = node.getAttribute("data-translate-placeholder");
+        let languagePath = loadedTranslationData[currentLang];
+        let fallbackPath = loadedTranslationData[defaultLang];
 
-                if (translate) node.innerHTML = data[translate] ? data[translate] :
-                    defaultLangData[translate] ? defaultLangData[translate] : translate;
-                if (translateTitle) node.title = data[translateTitle] ? data[translateTitle] :
-                    defaultLangData[translateTitle] ? defaultLangData[translateTitle] : translateTitle;
-                if (translatePlaceholder) node.placeholder = data[translatePlaceholder] ? data[translatePlaceholder] :
-                    defaultLangData[translatePlaceholder] ? defaultLangData[translatePlaceholder] : translatePlaceholder;
-            });
-        });
+        if (translate) node.innerHTML = languagePath[translate] ? languagePath[translate] :
+            fallbackPath[translate] ? fallbackPath[translate] : translate;
+        if (translateTitle) node.title = languagePath[translateTitle] ? languagePath[translateTitle] :
+            fallbackPath[translateTitle] ? fallbackPath[translateTitle] : translateTitle;
+        if (translatePlaceholder) node.placeholder = languagePath[translatePlaceholder] ? languagePath[translatePlaceholder] :
+            fallbackPath[translatePlaceholder] ? fallbackPath[translatePlaceholder] : translatePlaceholder;
+        if(languageList){
+            node.innerHTML = "";
+            for(let langCode in availableLanguages){
+                const dispName = availableLanguages[langCode];
+                const replace = languageList.replace(/%langCode%/g, langCode).replace(/%langDispName%/g, dispName)
+                    .replace(/%langCodeQ%/g, '"' + langCode + '"').replace(/%langDispName%/g, '"' + dispName + '"');
+                node.innerHTML += replace;
+            }
+        }
     });
+}
+
+function loadLanguage(prefix, suffix) {
+    loadedTranslationData = {};
+    let counter = 0,
+    target = Object.keys(availableLanguages).length;
+    for(const langCode in availableLanguages){
+        $.getJSON(langFolderPath + (prefix ? prefix : "") + langCode + (suffix ? suffix : "") + ".json", function (data) {
+            loadedTranslationData[langCode] = data;
+            counter++;
+            if(counter >= target)
+                reloadLanguage();
+        });
+    }
 }
 
 function isLangCodeValid(langCode) {
@@ -55,14 +76,7 @@ function getTranslation(key) {
     return data ? data : key;
 }
 
-function reloadLanguage() {
-    document.querySelectorAll('*').forEach(function (node) {
-        let translate = node.getAttribute("data-translate");
-        let translateTitle = node.getAttribute("data-translate-title");
-        let translatePlaceholder = node.getAttribute("data-translate-placeholder");
-
-        if (translate) node.innerHTML = loadedTranslationData[translate];
-        if (translateTitle) node.title = loadedTranslationData[translateTitle];
-        if (translatePlaceholder) node.placeholder = loadedTranslationData[translatePlaceholder];
-    });
+function changeLanguage(langCode) {
+    currentLang = langCode;
+    reloadLanguage();
 }

@@ -10,13 +10,20 @@
 <button onclick="buy()" data-translate="buy" data-translate-title="a-very-long-text"></button>
 <input type="text" id="username" data-translate-placeholder="user-name" />
 
+<br/>
+<h3>Available Languages:</h3>
+<div id="languagesList" data-languages-list="<a href='#' onclick='changeLanguage(%langCodeQ%);return false;'>%langCode%: %langDispName%</a><br/>">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.0.0/dist/js/translate.min.js"></script>
 <script>
-    setUpLanguages('en', 'ca', {
+    setUpLanguages('en', 'es', {
         "en": "English",
         "ca": "Català",
         "es": "Español"
     }, "/lang/");
+    loadLanguage();
 </script>
 </body>
 </html>

@@ -7,7 +7,12 @@ Translating your HTML pages as easy as never!
 [![License](https://img.shields.io/github/license/ArnyminerZ/JavaScript-Translator.svg?style=flat-square)](https://github.com/ArnyminerZ/JavaScript-Translator)
 
 # Requires
-For this project to work you must have *ECMAScript 6* Support
+For this project to work you must have *ECMAScript 6* Support.
+
+This project requires *JQuery 1.0*+, you can download it from [The Official Website](https://jquery.com/) or use their CDN:
+```html
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+```
 
 # Usage
 ## Import
@@ -85,10 +90,22 @@ A button, with title included:
 ```html
 <button onclick="buy()" data-translate="buy" data-translate-title="a-very-long-text"></button>
 ```
-And an input, with a placeholder:
+An input, with a placeholder:
 ```html
 <input type="text" id="username" data-translate-placeholder="user-name" />
 ```
+And a list for selecting the desired language:
+```html
+<h3>Available Languages:</h3>
+<div id="languagesList" data-languages-list="<a href='#' onclick='changeLanguage(%langCodeQ%);return false;'>%langCode%: %langDispName%</a><br/>"></div>
+```
+This will take all the text from `data-languages-list` and will iterate all the languages, adding over and over again that text, replacing some keywords:
+
+- `%langCode%`: The language code. *Example: 'es'*
+- `%langDispName%`: The language code display name. *Example: 'Español'*
+- `%langCodeQ%`: The language code quoted with ". *Example: '"es"'*
+- `%langDispNameQ%`: The language code display name quoted with ". *Example: '"Español"'*
+
 Once you have all of your HTML code ready, you have to tell the program to set the elements text. You can do this with:
 ```javascript
 loadLanguage();
@@ -97,6 +114,5 @@ This is all. One thing you can do, if you update any content of the page, or you
 
 To change the language dynamically you can:
 ```javascript
-currentLang = "ca";
-reloadLanguage();
+changeLanguage("es");
 ```
