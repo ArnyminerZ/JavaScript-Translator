@@ -71,9 +71,17 @@ function isLangCodeValid(langCode) {
 }
 
 function getTranslation(key) {
-    if (!loadedTranslationData || !key) return null;
-    const data = loadedTranslationData[key];
-    return data ? data : key;
+    return loadedTranslationData[currentLang][key] ? loadedTranslationData[currentLang][key] :
+        loadedTranslationData[defaultLang][key] ? loadedTranslationData[defaultLang][key] : key;
+}
+
+function setElementText(element, key, replace) {
+    let text = getTranslation(key);
+    const keys = Object.keys(replace);
+    for(let c = 0; c < keys.length; c++){
+        text = text.replace(new RegExp(keys[c],"g"), replace[c]);
+    }
+    return text;
 }
 
 function changeLanguage(langCode) {

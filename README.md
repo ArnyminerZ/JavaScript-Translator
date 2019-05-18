@@ -112,7 +112,40 @@ loadLanguage();
 ```
 This is all. One thing you can do, if you update any content of the page, or you change the language, you can call `reloadLanguage()`, and all the nodes with any translate content will reload.
 
+### Change Language
 To change the language dynamically you can:
 ```javascript
 changeLanguage("es");
+```
+
+### Get translation
+For getting a translation string from a key just use:
+```javascript
+getTranslation("key");
+```
+
+### Set element text
+We have developed an utility for setting an element's text from a translation, you can even replace text!
+
+To do so, we have this sample `us.json` file:
+```json
+{
+"concat-key": "The user %user% has been blocked by %buser%"
+}
+```
+And then with JavaScript:
+```javascript
+const elem = document.getElementById("element");
+setElementText(elem, "concat-key", { 
+    "%user%": "Michael",
+    "%buser%": "John"
+});
+```
+And with this, we will get the from the following HTML:
+```html
+<h2 id="element"></h2>
+```
+this:
+```
+The user Michael has been blocked by John
 ```
