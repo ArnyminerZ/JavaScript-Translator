@@ -6,7 +6,7 @@ Translating your HTML pages as easy as never!
 [![Build Status](https://img.shields.io/github/stars/ArnyminerZ/JavaScript-Translator.svg?style=flat-square)](https://github.com/ArnyminerZ/JavaScript-Translator)
 [![License](https://img.shields.io/github/license/ArnyminerZ/JavaScript-Translator.svg?style=flat-square)](https://github.com/ArnyminerZ/JavaScript-Translator)
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](arnyminer.z@gmail.com)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ArnyminerZ)
 
 # Requires
 For this project to work you must have *ECMAScript 6* Support.
