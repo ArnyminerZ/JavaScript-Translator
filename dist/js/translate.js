@@ -2,11 +2,25 @@ let currentLang = '';
 let defaultLang = 'en';
 let loadedTranslationData;
 let availableLanguages = {
-    "en": "English",
-    "ca": "Català",
-    "es": "Español"
+    "en-US": "English",
+    "ca-ES": "Català",
+    "es-ES": "Español"
 };
 let langFolderPath = "/lang/";
+
+function detectLanguage() {
+    if(navigator && navigator.languages){
+        for(const i in navigator.languages){
+            const lang = navigator.languages[i];
+            if(availableLanguages[lang]){
+                currentLang = lang;
+                reloadLanguage();
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 function setUpLanguages(defaultLanguage, selectLang, availableLanguagesList, languageFolderPath) {
     currentLang = selectLang;
@@ -53,7 +67,7 @@ function loadLanguage(prefix, suffix) {
     let counter = 0,
     target = Object.keys(availableLanguages).length;
     for(const langCode in availableLanguages){
-        $.getJSON(langFolderPath + (prefix ? prefix : "") + langCode + (suffix ? suffix : "") + ".json", function (data) {
+        $.getJSON(langFolderPath + (prefix || "") + langCode + (suffix || "") + ".json", function (data) {
             loadedTranslationData[langCode] = data;
             counter++;
             if(counter >= target)
@@ -64,15 +78,15 @@ function loadLanguage(prefix, suffix) {
 
 function isLangCodeValid(langCode) {
     const langCodes = Object.keys(availableLanguages);
-    for (let c = 0; c < langCodes.length; c++) {
+    for (let c = 0; c < langCodes.length; c++)
         if (langCodes[c] === langCode) return true;
-    }
     return false;
 }
 
 function getTranslation(key) {
-    return loadedTranslationData[currentLang][key] ? loadedTranslationData[currentLang][key] :
-        loadedTranslationData[defaultLang][key] ? loadedTranslationData[defaultLang][key] : key;
+    return loadedTranslationData[currentLang][key] ||
+        loadedTranslationData[defaultLang][key] || loadedTranslationData[defaultLang][key] ||
+        key;
 }
 
 function setElementText(element, key, replace) {

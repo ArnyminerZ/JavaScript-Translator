@@ -29,11 +29,13 @@ We have our project hosted in jDelivr, import it to your HTML page with:
 ```
 ## Setup
 Once you have imported the Javascript file, you can start using it. The first thing you have to do is prepare your languages, to do this, you have to call the `setUpLanguages` function:
+
+*Note: It's important to use the ISO language code if you want to use the `detectLanguage()` function.*
 ```javascript
-setUpLanguages('en', 'ca', {
-    "en": "English",
-    "ca": "Català",
-    "es": "Español"
+setUpLanguages('en-US', 'ca-ES', {
+    "en-US": "English",
+    "ca-ES": "Català",
+    "es-ES": "Español"
 }, "/lang/");
 ```
 This will set English as the default language, it will select Català to be used right now, but it will also add support for Español.
@@ -101,9 +103,9 @@ And a list for selecting the desired language:
 ```
 This will take all the text from `data-languages-list` and will iterate all the languages, adding over and over again that text, replacing some keywords:
 
-- `%langCode%`: The language code. *Example: 'es'*
+- `%langCode%`: The language code. *Example: 'es-ES'*
 - `%langDispName%`: The language code display name. *Example: 'Español'*
-- `%langCodeQ%`: The language code quoted with ". *Example: '"es"'*
+- `%langCodeQ%`: The language code quoted with ". *Example: '"es-ES"'*
 - `%langDispNameQ%`: The language code display name quoted with ". *Example: '"Español"'*
 
 Once you have all of your HTML code ready, you have to tell the program to set the elements text. You can do this with:
@@ -115,7 +117,7 @@ This is all. One thing you can do, if you update any content of the page, or you
 ### Change Language
 To change the language dynamically you can:
 ```javascript
-changeLanguage("es");
+changeLanguage("es-ES");
 ```
 
 ### Get translation
