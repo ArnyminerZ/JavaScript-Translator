@@ -22,12 +22,12 @@ You can download the project, or use our CDN.
 ### Download
 You can download our build files.
 
-![translate.min.js](https://img.shields.io/static/v1.svg?label=1.2.0&message=translate.min.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.2.0/dist/js/translate.min.js&style=flat-square)
-![translate.js](https://img.shields.io/static/v1.svg?label=1.2.0&message=translate.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.2.0/dist/js/translate.min.js&style=flat-square)
+![translate.min.js](https://img.shields.io/static/v1.svg?label=1.3.0&message=translate.min.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js&style=flat-square)
+![translate.js](https://img.shields.io/static/v1.svg?label=1.3.0&message=translate.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js&style=flat-square)
 ### CDN
 We have our project hosted in jDelivr, import it to your HTML page with:
 ```HTML
-<script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.2.0/dist/js/translate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js"></script>
 ```
 ## Setup
 Once you have imported the Javascript file, you can start using it. The first thing you have to do is prepare your languages, to do this, you have to call the `setUpLanguages` function:
