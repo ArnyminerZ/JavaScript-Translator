@@ -46,7 +46,7 @@ The language prefix will be the name for the JSON file to be used, in this examp
 ## Using
 Now that you have loaded up your preferences, you have to start creating some translations to use them, we are going to show you an example for this.
 
-Here's our `/lang/en.json` file:
+Here's our `/lang/en-US.json` file:
 ```json
 {
   "title": "Our Great Webpage",
@@ -59,7 +59,7 @@ Here's our `/lang/en.json` file:
 ```
 You can put any text in JSON format.
 
-We are then going to add also `/lang/ca.json` file:
+We are then going to add also `/lang/ca-ES.json` file:
 ```json
 {
   "title": "La Nostra Gran Pàgina",
@@ -70,7 +70,7 @@ We are then going to add also `/lang/ca.json` file:
   "user-name": "Nom d'Usuari"
 }
 ```
-and `/lang/es.json`:
+and `/lang/es-ES.json`:
 ```json
 {
   "title": "Nuestra Gran Página",
@@ -131,7 +131,7 @@ getTranslation("key");
 ### Set element text
 We have developed an utility for setting an element's text from a translation, you can even replace text!
 
-To do so, we have this sample `us.json` file:
+To do so, we have this sample `en-US.json` file:
 ```json
 {
 "concat-key": "The user %user% has been blocked by %buser%"
