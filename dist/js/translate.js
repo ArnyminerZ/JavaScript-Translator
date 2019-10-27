@@ -1,18 +1,14 @@
-let currentLang = '';
-let defaultLang = 'en';
+let currentLang;
+let defaultLang;
 let loadedTranslationData;
-let availableLanguages = {
-    "en-US": "English",
-    "ca-ES": "Català",
-    "es-ES": "Español"
-};
-let langFolderPath = "/lang/";
+let availableLanguages;
+let langFolderPath;
 
 function detectLanguage() {
-    if(navigator && navigator.languages){
-        for(const i in navigator.languages){
+    if (navigator && navigator.languages) {
+        for (const i in navigator.languages) {
             const lang = navigator.languages[i];
-            if(availableLanguages[lang]){
+            if (availableLanguages[lang]) {
                 currentLang = lang;
                 reloadLanguage();
                 return true;
@@ -26,7 +22,7 @@ function setUpLanguages(defaultLanguage, selectLang, availableLanguagesList, lan
     currentLang = selectLang;
     defaultLang = defaultLanguage;
     availableLanguages = availableLanguagesList;
-    if (languageFolderPath) {
+    if (languageFolderPath != null) {
         if (!languageFolderPath.endsWith("/"))
             languageFolderPath += "/";
         langFolderPath = languageFolderPath;
@@ -50,13 +46,15 @@ function reloadLanguage() {
             fallbackPath[translateTitle] ? fallbackPath[translateTitle] : translateTitle;
         if (translatePlaceholder) node.placeholder = languagePath[translatePlaceholder] ? languagePath[translatePlaceholder] :
             fallbackPath[translatePlaceholder] ? fallbackPath[translatePlaceholder] : translatePlaceholder;
-        if(languageList){
+        if (languageList) {
             node.innerHTML = "";
-            for(let langCode in availableLanguages){
-                const dispName = availableLanguages[langCode];
-                const replace = languageList.replace(/%langCode%/g, langCode).replace(/%langDispName%/g, dispName)
-                    .replace(/%langCodeQ%/g, '"' + langCode + '"').replace(/%langDispName%/g, '"' + dispName + '"');
-                node.innerHTML += replace;
+            for (let langCode in availableLanguages) {
+                if (availableLanguages.hasOwnProperty(langCode)) {
+                    const dispName = availableLanguages[langCode];
+                    const replace = languageList.replace(/%langCode%/g, langCode).replace(/%langDispName%/g, dispName)
+                        .replace(/%langCodeQ%/g, '"' + langCode + '"').replace(/%langDispName%/g, '"' + dispName + '"');
+                    node.innerHTML += replace;
+                }
             }
         }
     });
@@ -65,14 +63,16 @@ function reloadLanguage() {
 function loadLanguage(prefix, suffix) {
     loadedTranslationData = {};
     let counter = 0,
-    target = Object.keys(availableLanguages).length;
-    for(const langCode in availableLanguages){
-        $.getJSON(langFolderPath + (prefix || "") + langCode + (suffix || "") + ".json", function (data) {
-            loadedTranslationData[langCode] = data;
-            counter++;
-            if(counter >= target)
-                reloadLanguage();
-        });
+        target = Object.keys(availableLanguages).length;
+    for (const langCode in availableLanguages) {
+        if (availableLanguages.hasOwnProperty(langCode)) {
+            $.getJSON(langFolderPath + (prefix || "") + langCode + (suffix || "") + ".json", function (data) {
+                loadedTranslationData[langCode] = data;
+                counter++;
+                if (counter >= target)
+                    reloadLanguage();
+            });
+        }
     }
 }
 
@@ -92,8 +92,8 @@ function getTranslation(key) {
 function setElementText(element, key, replace) {
     let text = getTranslation(key);
     const keys = Object.keys(replace);
-    for(let c = 0; c < keys.length; c++){
-        text = text.replace(new RegExp(keys[c],"g"), replace[c]);
+    for (let c = 0; c < keys.length; c++) {
+        text = text.replace(new RegExp(keys[c], "g"), replace[c]);
     }
     return text;
 }

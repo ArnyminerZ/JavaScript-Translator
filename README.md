@@ -42,7 +42,7 @@ setUpLanguages('en-US', 'ca-ES', {
 ```
 This will set English as the default language, it will select Català to be used right now, but it will also add support for Español.
 
-The language prefix will be the name for the JSON file to be used, in this example, all the English translations will be in the `/lang/en.json` file, the Català ones in `/lang/ca.json` and the Español ones in `/lang/es.json`.
+The language prefix will be the name for the JSON file to be used, in this example, all the English translations will be in the `/lang/en-US.json` file, the Català ones in `/lang/ca-ES.json` and the Español ones in `/lang/es-ES.json`.
 ## Using
 Now that you have loaded up your preferences, you have to start creating some translations to use them, we are going to show you an example for this.
 
