@@ -60,7 +60,7 @@ function reloadLanguage() {
     });
 }
 
-function loadLanguage(prefix, suffix) {
+function loadLanguage(prefix, suffix, finishListener) {
     loadedTranslationData = {};
     let counter = 0,
         target = Object.keys(availableLanguages).length;
@@ -69,8 +69,10 @@ function loadLanguage(prefix, suffix) {
             $.getJSON(langFolderPath + (prefix || "") + langCode + (suffix || "") + ".json", function (data) {
                 loadedTranslationData[langCode] = data;
                 counter++;
-                if (counter >= target)
+                if (counter >= target) {
                     reloadLanguage();
+                    finishListener();
+                }
             });
         }
     }
