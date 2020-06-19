@@ -29,9 +29,13 @@ We have our project hosted in jDelivr, import it to your HTML page with:
 ```HTML
 <script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js"></script>
 ```
-We also have the project hosted in our cdn, import it to your HTML page with:
+We also have the project hosted in our cdn, import the minified version to your HTML page with:
 ```HTML
-<script src="https://minify.arnyminerz.com/cdn/translate.js"></script>
+<script src="http://cdn.arnyminerz.com/translator.min.js"></script>
+```
+or the not minified version:
+```HTML
+<script src="http://cdn.arnyminerz.com/translator.js"></script>
 ```
 ## Setup
 Once you have imported the Javascript file, you can start using it. The first thing you have to do is prepare your languages, to do this, you have to call the `setUpLanguages` function:
