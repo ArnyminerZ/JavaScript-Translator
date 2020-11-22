@@ -117,7 +117,8 @@ function loadLanguage(prefix, suffix, finishListener) {
           counter++;
           if (counter >= target) {
             reloadLanguage();
-            finishListener();
+            if(finishListener != null)
+              finishListener();
           }
         }
       );
