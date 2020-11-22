@@ -4,5 +4,7 @@
   "shop": "Tenda",
   "buy": "Comprar",
   "a-very-long-text": "Un text increïblement llarg !!!!! :)",
-  "user-name": "Nom d'Usuari"
+  "user-name": "Nom d'Usuari",
+  "example-custom-tag": "Etiqueta de tipus personalitzat",
+  "example-custom-tag-2": "Una altra etiqueta de tipus personalizat."
 }

@@ -4,5 +4,7 @@
   "shop": "Tienda",
   "buy": "Comprar",
   "a-very-long-text": "Un texto increíblemente largo !!!!! :)",
-  "user-name": "Nombre de Usuario"
+  "user-name": "Nombre de Usuario",
+  "example-custom-tag": "Etiqueta de tipo personalizado",
+  "example-custom-tag-2": "Otra etiqueta de tipo personalizado"
 }

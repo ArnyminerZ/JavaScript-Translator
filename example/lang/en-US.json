@@ -4,5 +4,7 @@
   "shop": "Shop",
   "buy": "Buy",
   "a-very-long-text": "This is an awesomely long text !!!!! :)",
-  "user-name": "Username"
+  "user-name": "Username",
+  "example-custom-tag": "Custom type tag",
+  "example-custom-tag-2": "Another custom type tag"
 }
