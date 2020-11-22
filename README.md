@@ -22,12 +22,12 @@ You can download the project, or use our CDN.
 ### Download
 You can download our build files.
 
-![translate.min.js](https://img.shields.io/static/v1.svg?label=1.3.0&message=translate.min.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js&style=flat-square)
-![translate.js](https://img.shields.io/static/v1.svg?label=1.3.0&message=translate.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js&style=flat-square)
+![translate.min.js](https://img.shields.io/static/v1.svg?label=1.3.0&message=translate.min.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.4.0/dist/js/translate.min.js&style=flat-square)
+![translate.js](https://img.shields.io/static/v1.svg?label=1.3.0&message=translate.js&color=success&url=https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.4.0/dist/js/translate.min.js&style=flat-square)
 ### CDN
 We have our project hosted in jDelivr, import it to your HTML page with:
 ```HTML
-<script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.3.0/dist/js/translate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ArnyminerZ/JavaScript-Translator@1.4.0/dist/js/translate.min.js"></script>
 ```
 We also have the project hosted in our cdn, import the minified version to your HTML page with:
 ```HTML
@@ -62,7 +62,9 @@ Here's our `/lang/en-US.json` file:
   "shop": "Shop",
   "buy": "Buy",
   "a-very-long-text": "This is an awesomely long text !!!!! :)",
-  "user-name": "Username"
+  "user-name": "Username",
+  "example-custom-tag": "Custom type tag",
+  "example-custom-tag-2": "Another custom type tag"
 }
 ```
 You can put any text in JSON format.
@@ -75,7 +77,9 @@ We are then going to add also `/lang/ca-ES.json` file:
   "shop": "Tenda",
   "buy": "Comprar",
   "a-very-long-text": "Un text increïblement llarg !!!!! :)",
-  "user-name": "Nom d'Usuari"
+  "user-name": "Nom d'Usuari",
+  "example-custom-tag": "Etiqueta de tipus personalitzat",
+  "example-custom-tag-2": "Una altra etiqueta de tipus personalizat."
 }
 ```
 and `/lang/es-ES.json`:
@@ -86,7 +90,9 @@ and `/lang/es-ES.json`:
   "shop": "Tienda",
   "buy": "Comprar",
   "a-very-long-text": "Un texto increíblemente largo !!!!! :)",
-  "user-name": "Nombre de Usuario"
+  "user-name": "Nombre de Usuario",
+  "example-custom-tag": "Etiqueta de tipo personalizado",
+  "example-custom-tag-2": "Otra etiqueta de tipo personalizado"
 }
 ```
 Once that we that ready, we can start loading up our page, for example, we are now going to translate our `title`, you just have to set the attribute `data-translate`, and the code will do it all for you:
@@ -106,10 +112,14 @@ An input, with a placeholder:
 ```html
 <input type="text" id="username" data-translate-placeholder="user-name" />
 ```
-And a list for selecting the desired language:
+A list for selecting the desired language:
 ```html
 <h3>Available Languages:</h3>
 <div id="languagesList" data-languages-list="<a href='#' onclick='changeLanguage(%langCodeQ%);return false;'>%langCode%: %langDispName%</a><br/>"></div>
+```
+And even custom tags translation: ![Minimum required version: 1.4.0](https://img.shields.io/badge/min%20ver-1.4.0-brightgreen)
+```html
+<h3 data-languages-custom="data-content:example-custom-tag;data-content-2:example-custom-tag-2">This has a custom data tag updated</h3>
 ```
 This will take all the text from `data-languages-list` and will iterate all the languages, adding over and over again that text, replacing some keywords:
 
