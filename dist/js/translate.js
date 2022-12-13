@@ -32,7 +32,7 @@ let loadedTranslationData;
 /**
  * A list of all the languages available. Keys match the language code, and their values the respective display names
  * @since 1.0.0
- * @type {Object.<string, string>}
+ * @type {Intl.Locale[]}
  */
 let availableLanguages;
 
@@ -69,7 +69,7 @@ function detectLanguage() {
  * @since 1.0.0
  * @param {string} defaultLanguage The fallback language. The JSON file for this language must contain all the strings, otherwise errors will occur.
  * @param {string} selectLang The initial language to select.
- * @param {Object.<string,string>} availableLanguagesList A list of all the available languages. The keys are the language codes (use ISO), and the values their respective display names.
+ * @param {string[]} availableLanguagesList A list of all the available languages.
  * @param {string} languageFolderPath The path where all the language files are stored.
  */
 function setUpLanguages(
@@ -80,7 +80,7 @@ function setUpLanguages(
 ) {
   currentLang = selectLang;
   defaultLang = defaultLanguage;
-  availableLanguages = availableLanguagesList;
+  availableLanguages = availableLanguagesList.map(key => new Intl.Locale(key));
   if (languageFolderPath != null) {
     if (!languageFolderPath.endsWith("/")) languageFolderPath += "/";
     langFolderPath = languageFolderPath;
@@ -125,16 +125,16 @@ function reloadLanguage() {
         : translatePlaceholder;
     if (languageList) {
       node.innerHTML = "";
-      for (let langCode in availableLanguages) {
-        if (availableLanguages.hasOwnProperty(langCode)) {
-          const dispName = availableLanguages[langCode];
-          const replace = languageList
-            .replace(/%langCode%/g, langCode)
-            .replace(/%langDispName%/g, dispName)
-            .replace(/%langCodeQ%/g, '"' + langCode + '"')
-            .replace(/%langDispName%/g, '"' + dispName + '"');
-          node.innerHTML += replace;
-        }
+      for (const locale of availableLanguages) {
+        const langCode = locale.baseName;
+        const languageNames = new Intl.DisplayNames([langCode], {type: 'language'});
+        const dispName = languageNames.of(langCode);
+        const replace = languageList
+          .replace(/%langCode%/g, langCode)
+          .replace(/%langDispName%/g, dispName)
+          .replace(/%langCodeQ%/g, '"' + langCode + '"')
+          .replace(/%langDispName%/g, '"' + dispName + '"');
+        node.innerHTML += replace;
       }
     }
     if (custom) {
@@ -167,16 +167,23 @@ function loadLanguage(prefix = '', suffix = '') {
     // Clear any loaded data
     loadedTranslationData = {};
     // Start iterating all the available languages.
-    const languageKeys = Object.keys(availableLanguages);
-    for (const langCode of languageKeys) {
+    for (const locale of availableLanguages) {
+      const langCode = locale.baseName;
       const xml = new XMLHttpRequest();
       xml.onerror = reject;
       xml.open('GET', langFolderPath + prefix + langCode + suffix + ".json", false);
       xml.send();
 
       const message = xml.responseText;
-      const data = JSON.parse(message);
-      loadedTranslationData[langCode] = data;
+      try {
+        const data = JSON.parse(message);
+        loadedTranslationData[langCode] = data;
+      } catch(err) {
+        if (err instanceof SyntaxError)
+          reject(new SyntaxError('JSON not valid: ' + message));
+        else
+          reject(err);
+      }
     }
     reloadLanguage();
     resolve();
