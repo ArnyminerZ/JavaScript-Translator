@@ -116,10 +116,6 @@ This will take all the text from `data-languages-list` and will iterate all the 
 - `%langCodeQ%`: The language code quoted with ". *Example: '"es-ES"'*
 - `%langDispNameQ%`: The language code display name quoted with ". *Example: '"Español"'*
 
-Once you have all of your HTML code ready, you have to tell the program to set the elements text. You can do this with:
-```javascript
-loadLanguage();
-```
 This is all. One thing you can do, if you update any content of the page, or you change the language, you can call `reloadLanguage()`, and all the nodes with any translate content will reload.
 
 ### Change Language
