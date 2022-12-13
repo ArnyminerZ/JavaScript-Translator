@@ -64,7 +64,7 @@ function detectLanguage() {
 }
 
 /**
- * Configures the installation. Sets up a fallback language, selects one, and updates the list of available languages.
+ * Configures the installation. Sets up a fallback language, selects one, and updates the list of available languages. Refreshes the UI once the window is loaded.
  * @author Arnau Mora
  * @since 1.0.0
  * @param {string} defaultLanguage The fallback language. The JSON file for this language must contain all the strings, otherwise errors will occur.
@@ -85,6 +85,8 @@ function setUpLanguages(
     if (!languageFolderPath.endsWith("/")) languageFolderPath += "/";
     langFolderPath = languageFolderPath;
   } else langFolderPath = "/lang/";
+
+  window.addEventListener('load', () => loadLanguage());
 }
 
 /**
