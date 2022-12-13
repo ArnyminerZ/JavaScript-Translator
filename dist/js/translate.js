@@ -71,12 +71,14 @@ function detectLanguage() {
  * @param {string} selectLang The initial language to select.
  * @param {string[]} availableLanguagesList A list of all the available languages.
  * @param {string} languageFolderPath The path where all the language files are stored.
+ * @param {boolean} loadAutomatically If true, `loadLanguage` will be called automatically when the page finishes loading.
  */
 function setUpLanguages(
   defaultLanguage,
   selectLang,
   availableLanguagesList,
-  languageFolderPath
+  languageFolderPath,
+  loadAutomatically = true,
 ) {
   currentLang = selectLang;
   defaultLang = defaultLanguage;
@@ -86,7 +88,7 @@ function setUpLanguages(
     langFolderPath = languageFolderPath;
   } else langFolderPath = "/lang/";
 
-  window.addEventListener('load', () => loadLanguage());
+  if (loadAutomatically) window.addEventListener('load', () => loadLanguage());
 }
 
 /**
