@@ -4,13 +4,18 @@
  * 
  * @repository https://github.com/ArnyminerZ/JavaScript-Translator
  * @file translate.js
- * @version 1.4.0
+ * @version 1.5.0
  * @author ArnyminerZ
  */
 
 let currentLang;
 let defaultLang;
 let loadedTranslationData;
+/**
+ * A list of all the languages available. Keys match the language code, and their values the respective display names
+ * @since 20221213
+ * @type {Object.<string, string>}
+ */
 let availableLanguages;
 let langFolderPath;
 
@@ -104,26 +109,32 @@ function reloadLanguage() {
   });
 }
 
-function loadLanguage(prefix, suffix, finishListener) {
-  loadedTranslationData = {};
-  let counter = 0,
-    target = Object.keys(availableLanguages).length;
-  for (const langCode in availableLanguages) {
-    if (availableLanguages.hasOwnProperty(langCode)) {
-      $.getJSON(
-        langFolderPath + (prefix || "") + langCode + (suffix || "") + ".json",
-        function (data) {
-          loadedTranslationData[langCode] = data;
-          counter++;
-          if (counter >= target) {
-            reloadLanguage();
-            if(finishListener != null)
-              finishListener();
-          }
-        }
-      );
+/**
+ * Loads the currently selected language.
+ * @since 20221213
+ * @param {string} prefix A prefix to add to the language file name.
+ * @param {string} suffix A suffix to add to the language file name.
+ * @returns {Promise<void>}
+ */
+function loadLanguage(prefix = '', suffix = '') {
+  return new Promise((resolve, reject) => {
+    // Clear any loaded data
+    loadedTranslationData = {};
+    // Start iterating all the available languages.
+    const languageKeys = Object.keys(availableLanguages);
+    for (const langCode of languageKeys) {
+      const xml = new XMLHttpRequest();
+      xml.onerror = reject;
+      xml.open('GET', langFolderPath + prefix + langCode + suffix + ".json", false);
+      xml.send();
+
+      const message = xml.responseText;
+      const data = JSON.parse(message);
+      loadedTranslationData[langCode] = data;
     }
-  }
+    reloadLanguage();
+    resolve();
+  });
 }
 
 function isLangCodeValid(langCode) {
