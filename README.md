@@ -163,3 +163,5 @@ The user Michael has been blocked by John
 # Migrations
 ## `1.5.0`
 * jQuery is no longer required.
+## `1.5.1`
+* `setUpLanguages` now refreshes the page automatically. This can be disabled with the `loadAutomatically` parameter.
