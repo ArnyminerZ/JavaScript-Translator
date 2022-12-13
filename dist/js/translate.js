@@ -8,17 +8,47 @@
  * @author ArnyminerZ
  */
 
+/**
+ * Stores the currently selected language.
+ * @author Arnau Mora
+ * @since 1.0.0
+ */
 let currentLang;
+
+/**
+ * Stores the fallback language, for fetching strings that are not available in the currently selected one.
+ * @since 1.0.0
+ * @type {string}
+ */
 let defaultLang;
+
+/**
+ * Caches the translation data loaded for all the languages. Keys are the language codes, and each of them contain all the localized Strings.
+ * @since 1.0.0
+ * @type {Object.<string, Object.<string,string>>}
+ */
 let loadedTranslationData;
+
 /**
  * A list of all the languages available. Keys match the language code, and their values the respective display names
- * @since 20221213
+ * @since 1.0.0
  * @type {Object.<string, string>}
  */
 let availableLanguages;
+
+/**
+ * Stores the directory where all the language files are stored at.
+ * @author Arnau Mora
+ * @type {string}
+ */
 let langFolderPath;
 
+/**
+ * Checks for the navigator's actual language, and selects it if it's available.
+ * @author Arnau Mora
+ * @since 1.4.0
+ * @returns {boolean} `true` if the language is available, and after updating the page. `false` otherwise.
+ */
 function detectLanguage() {
   if (navigator && navigator.languages) {
     for (const i in navigator.languages) {
@@ -33,6 +63,15 @@ function detectLanguage() {
   return false;
 }
 
+/**
+ * Configures the installation. Sets up a fallback language, selects one, and updates the list of available languages.
+ * @author Arnau Mora
+ * @since 1.0.0
+ * @param {string} defaultLanguage The fallback language. The JSON file for this language must contain all the strings, otherwise errors will occur.
+ * @param {string} selectLang The initial language to select.
+ * @param {Object.<string,string>} availableLanguagesList A list of all the available languages. The keys are the language codes (use ISO), and the values their respective display names.
+ * @param {string} languageFolderPath The path where all the language files are stored.
+ */
 function setUpLanguages(
   defaultLanguage,
   selectLang,
@@ -48,6 +87,13 @@ function setUpLanguages(
   } else langFolderPath = "/lang/";
 }
 
+/**
+ * Updates the page with the currently selected language's values.
+ * @author Arnau Mora
+ * @since 20221213
+ * @see setUpLanguages
+ * @see changeLanguage
+ */
 function reloadLanguage() {
   document.querySelectorAll("*").forEach(function (node) {
     let translate = node.getAttribute("data-translate");
@@ -110,7 +156,7 @@ function reloadLanguage() {
 }
 
 /**
- * Loads the currently selected language.
+ * Loads the currently selected language. Updates the UI automatically.
  * @since 20221213
  * @param {string} prefix A prefix to add to the language file name.
  * @param {string} suffix A suffix to add to the language file name.
@@ -137,6 +183,13 @@ function loadLanguage(prefix = '', suffix = '') {
   });
 }
 
+/**
+ * Checks if a given translation code is available in the stored languages.
+ * @author Arnau Mora
+ * @since 1.0.0
+ * @param {string} langCode The language code.
+ * @returns {boolean} `true` if the given `langCode` is available, `false` otherwise.
+ */
 function isLangCodeValid(langCode) {
   const langCodes = Object.keys(availableLanguages);
   for (let c = 0; c < langCodes.length; c++)
@@ -144,6 +197,13 @@ function isLangCodeValid(langCode) {
   return false;
 }
 
+/**
+ * Fetches the translation of a given key.
+ * @author Arnau Mora
+ * @since 1.0.0
+ * @param {string} key The key to fetch.
+ * @returns {?string} The localized string.
+ */
 function getTranslation(key) {
   return (
     loadedTranslationData[currentLang][key] ||
@@ -162,6 +222,12 @@ function setElementText(element, key, replace) {
   return text;
 }
 
+/**
+ * Changes the currently selected language. Reloads the UI automatically.
+ * @author Arnau Mora
+ * @since 1.0.0
+ * @param {string} langCode The language code to set.
+ */
 function changeLanguage(langCode) {
   currentLang = langCode;
   reloadLanguage();
